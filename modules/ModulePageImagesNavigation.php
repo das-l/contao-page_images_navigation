@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
- *
- * @package     PageImagesNavigation
- * @author      Ruud Walraven <ruud.walraven@gmail.com>
- * @copyright   Ruud Walraven 2011 - 2013
- * @license     http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- */
-
-
-/**
  * Run in a custom namespace, so the class can be replaced
  */
 namespace PageImages;
@@ -24,7 +13,6 @@ namespace PageImages;
  * @copyright  Ruud Walraven 2013
  * @author     Leo Feyer <http://www.contao.org>
  * @author     Ruud Walraven <ruud.walraven@gmail.com>
- * @package    PageImagesNavigation
  */
 class ModulePageImagesNavigation extends \PageImages
 {
