@@ -1,6 +1,6 @@
 <?php
 
-namespace DasL\PageImagesNavigationBundle;
+namespace Ruudt\PageImagesNavigationBundle;
 
 /**
  * Class PageImage

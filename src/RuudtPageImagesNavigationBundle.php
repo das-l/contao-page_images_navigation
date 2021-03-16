@@ -5,10 +5,10 @@
  * @license LGPL-3.0+
  */
 
-namespace DasL\PageImagesNavigationBundle;
+namespace Ruudt\PageImagesNavigationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class DasLPageImagesNavigationBundle extends Bundle
+class RuudtPageImagesNavigationBundle extends Bundle
 {
 }

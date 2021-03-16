@@ -1,12 +1,12 @@
 <?php
 
-namespace DasL\PageImagesNavigationBundle\FrontendModule;
+namespace Ruudt\PageImagesNavigationBundle\FrontendModule;
 
 use Contao\BackendTemplate;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\PageModel;
-use DasL\PageImagesNavigationBundle\PageImage;
+use Ruudt\PageImagesNavigationBundle\PageImage;
 use Srhinow\ContaoPageImagesBundle\PageImages\PageImages;
 
 /**

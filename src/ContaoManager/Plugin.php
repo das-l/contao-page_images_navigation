@@ -5,7 +5,7 @@
  * @license LGPL-3.0+
  */
 
-namespace DasL\PageImagesNavigationBundle\ContaoManager;
+namespace Ruudt\PageImagesNavigationBundle\ContaoManager;
 
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
@@ -16,7 +16,7 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
-            (new BundleConfig('DasL\PageImagesNavigationBundle\DasLPageImagesNavigationBundle'))
+            (new BundleConfig('Ruudt\PageImagesNavigationBundle\RuudtPageImagesNavigationBundle'))
                 ->setLoadAfter(['Srhinow\ContaoPageImagesBundle\SrhinowContaoPageImagesBundle'])
         ];
     }

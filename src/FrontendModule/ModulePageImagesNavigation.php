@@ -1,6 +1,6 @@
 <?php
 
-namespace DasL\PageImagesNavigationBundle\FrontendModule;
+namespace Ruudt\PageImagesNavigationBundle\FrontendModule;
 
 use Contao\BackendTemplate;
 use Contao\Environment;
@@ -9,7 +9,7 @@ use Contao\Input;
 use Contao\ModuleSitemap;
 use Contao\PageModel;
 use Contao\StringUtil;
-use DasL\PageImagesNavigationBundle\PageImage;
+use Ruudt\PageImagesNavigationBundle\PageImage;
 use Srhinow\ContaoPageImagesBundle\PageImages\PageImages;
 
 /**
