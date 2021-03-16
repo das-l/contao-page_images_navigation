@@ -1,20 +1,24 @@
 <?php
 
-/**
- * Run in a custom namespace, so the class can be replaced
- */
-namespace PageImages;
+namespace DasL\PageImagesNavigationBundle\FrontendModule;
 
+use Contao\BackendTemplate;
+use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\PageModel;
+use DasL\PageImagesNavigationBundle\PageImage;
+use Srhinow\ContaoPageImagesBundle\PageImages\PageImages;
 
 /**
- * Class ModulePageImagesNavigation
+ * Class ModulePageImagesCustomnav
  *
  * @copyright  Leo Feyer 2005-2013
  * @copyright  Ruud Walraven 2013
  * @author     Leo Feyer <http://www.contao.org>
  * @author     Ruud Walraven <ruud.walraven@gmail.com>
+ * @author     Alex Wuttke <alex@das-l.de>
  */
-class ModulePageImagesCustomnav extends \PageImages
+class ModulePageImagesCustomnav extends PageImages
 {
 
 	/**
@@ -32,7 +36,7 @@ class ModulePageImagesCustomnav extends \PageImages
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['customnav_pageimages'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
@@ -75,7 +79,7 @@ class ModulePageImagesCustomnav extends \PageImages
 
 
 		// Get all active pages
-		$objPages = \PageModel::findPublishedRegularWithoutGuestsByIds($this->pages);
+		$objPages = PageModel::findPublishedRegularWithoutGuestsByIds($this->pages);
 
 		// Return if there are no pages
 		if ($objPages === null)
@@ -126,7 +130,7 @@ class ModulePageImagesCustomnav extends \PageImages
 			$this->navigationTpl = 'nav_default';
 		}
 
-		$objTemplate = new \FrontendTemplate($this->navigationTpl);
+		$objTemplate = new FrontendTemplate($this->navigationTpl);
 
 		$objTemplate->type = get_class($this);
 		$objTemplate->cssID = $this->cssID; // see #4897 and 6129
@@ -153,7 +157,7 @@ class ModulePageImagesCustomnav extends \PageImages
 						break;
 
 					case 'forward':
-						if (($objNext = \PageModel::findPublishedById($arrPage['jumpTo'])) !== null)
+						if (($objNext = PageModel::findPublishedById($arrPage['jumpTo'])) !== null)
 						{
 							$strForceLang = null;
 							$objNext->loadDetails();
@@ -167,9 +171,9 @@ class ModulePageImagesCustomnav extends \PageImages
 							$href = $this->generateFrontendUrl($objNext->row(), null, $strForceLang);
 
 							// Add the domain if it differs from the current one (see #3765)
-							if ($objNext->domain != '' && $objNext->domain != \Environment::get('host'))
+							if ($objNext->domain != '' && $objNext->domain != Environment::get('host'))
 							{
-								$href = (\Environment::get('ssl') ? 'https://' : 'http://') . $objNext->domain . TL_PATH . '/' . $href;
+								$href = (Environment::get('ssl') ? 'https://' : 'http://') . $objNext->domain . TL_PATH . '/' . $href;
 							}
 							break;
 						}
@@ -179,9 +183,9 @@ class ModulePageImagesCustomnav extends \PageImages
 						$href = $this->generateFrontendUrl($arrPage, null, $arrPage['rootLanguage']);
 
 						// Add the domain if it differs from the current one (see #3765)
-						if ($arrPage['domain'] != '' && $arrPage['domain'] != \Environment::get('host'))
+						if ($arrPage['domain'] != '' && $arrPage['domain'] != Environment::get('host'))
 						{
-							$href = (\Environment::get('ssl') ? 'https://' : 'http://') . $arrPage['domain'] . TL_PATH . '/' . $href;
+							$href = (Environment::get('ssl') ? 'https://' : 'http://') . $arrPage['domain'] . TL_PATH . '/' . $href;
 						}
 						break;
 				}
@@ -246,7 +250,7 @@ class ModulePageImagesCustomnav extends \PageImages
 		$objTemplate->href_image = $this->pageimages_href_image;
 		$objTemplate->items = $items;
 
-		$this->Template->request = \Environment::get('indexFreeRequest');
+		$this->Template->request = Environment::get('indexFreeRequest');
 		$this->Template->skipId = 'skipNavigation' . $this->id;
 		$this->Template->skipNavigation = specialchars($GLOBALS['TL_LANG']['MSC']['skipNavigation']);
 		$this->Template->items = !empty($items) ? $objTemplate->parse() : '';

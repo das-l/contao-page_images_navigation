@@ -10,10 +10,10 @@
  */
 array_insert($GLOBALS['FE_MOD']['navigationMenu'], 1, array
 (
-	'navigation_pageimages'	=> 'ModulePageImagesNavigation'
+	'navigation_pageimages'	=> 'DasL\\PageImagesNavigationBundle\\FrontendModule\\ModulePageImagesNavigation'
 ));
 
 array_insert($GLOBALS['FE_MOD']['navigationMenu'], 3, array
 (
-	'customnav_pageimages'	=> 'ModulePageImagesCustomnav'
+	'customnav_pageimages'	=> 'DasL\\PageImagesNavigationBundle\\FrontendModule\\ModulePageImagesCustomnav'
 ));

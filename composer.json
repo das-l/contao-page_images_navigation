@@ -1,0 +1,37 @@
+{
+    "name": "das-l/contao-page-images-navigation-bundle",
+    "type": "contao-bundle",
+    "description": "Add menus with images",
+    "support": {
+        "issues": "https://github.com/das-l/contao-page_images_navigation/issues"
+    },
+    "authors": [
+        {
+            "name": "Leo Feyer",
+            "homepage": "https://github.com/leofeyer"
+        },
+        {
+            "name": "Ruud Walraven",
+            "email": "ruud.walraven@gmail.com",
+            "homepage": "https://github.com/Ruudt"
+        },
+        {
+            "name": "Alex Wuttke",
+            "email": "alex@das-l.de",
+            "homepage": "https://github.com/gmpf"
+        }
+    ],
+    "license": "LGPL-3.0+",
+    "require": {
+        "contao/core-bundle": "^4.4",
+        "srhinow/contao-page-images-bundle": "^0.0.3"
+    },
+    "extra": {
+        "contao-manager-plugin": "DasL\\PageImagesNavigationBundle\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "DasL\\PageImagesNavigationBundle\\": "src/"
+        }
+    }
+}

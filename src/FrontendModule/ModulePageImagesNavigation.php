@@ -1,10 +1,16 @@
 <?php
 
-/**
- * Run in a custom namespace, so the class can be replaced
- */
-namespace PageImages;
+namespace DasL\PageImagesNavigationBundle\FrontendModule;
 
+use Contao\BackendTemplate;
+use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\Input;
+use Contao\ModuleSitemap;
+use Contao\PageModel;
+use Contao\StringUtil;
+use DasL\PageImagesNavigationBundle\PageImage;
+use Srhinow\ContaoPageImagesBundle\PageImages\PageImages;
 
 /**
  * Class ModulePageImagesNavigation
@@ -13,8 +19,9 @@ namespace PageImages;
  * @copyright  Ruud Walraven 2013
  * @author     Leo Feyer <http://www.contao.org>
  * @author     Ruud Walraven <ruud.walraven@gmail.com>
+ * @author     Alex Wuttke <alex@das-l.de>
  */
-class ModulePageImagesNavigation extends \PageImages
+class ModulePageImagesNavigation extends PageImages
 {
 
 	/**
@@ -32,7 +39,7 @@ class ModulePageImagesNavigation extends \PageImages
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['navigation_pageimages'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
@@ -73,7 +80,7 @@ class ModulePageImagesNavigation extends \PageImages
 		// Overwrite the domain and language if the reference page belongs to a differnt root page (see #3765)
 		if ($this->defineRoot && $this->rootPage > 0)
 		{
-			$objRootPage = \PageModel::findWithDetails($this->rootPage);
+			$objRootPage = PageModel::findWithDetails($this->rootPage);
 
 			// Set the language
 			if ($GLOBALS['TL_CONFIG']['addLanguageToUrl'] && $objRootPage->rootLanguage != $objPage->rootLanguage)
@@ -88,7 +95,7 @@ class ModulePageImagesNavigation extends \PageImages
 			}
 		}
 
-		$this->Template->request = ampersand(\Environment::get('indexFreeRequest'));
+		$this->Template->request = ampersand(Environment::get('indexFreeRequest'));
 		$this->Template->skipId = 'skipNavigation' . $this->id;
 		$this->Template->skipNavigation = specialchars($GLOBALS['TL_LANG']['MSC']['skipNavigation']);
 		$this->Template->items = $this->renderNavigation($trail[$level], 1, $host, $lang);
@@ -106,7 +113,7 @@ class ModulePageImagesNavigation extends \PageImages
 	protected function renderNavigation($pid, $level=1, $host=null, $language=null)
 	{
 		// Get all active subpages
-		$objSubpages = \PageModel::findPublishedSubpagesWithoutGuestsByPid($pid, $this->showHidden, $this instanceof \ModuleSitemap);
+		$objSubpages = PageModel::findPublishedSubpagesWithoutGuestsByPid($pid, $this->showHidden, $this instanceof ModuleSitemap);
 
 		if ($objSubpages === null)
 		{
@@ -129,7 +136,7 @@ class ModulePageImagesNavigation extends \PageImages
 			$this->navigationTpl = 'nav_default';
 		}
 
-		$objTemplate = new \FrontendTemplate($this->navigationTpl);
+		$objTemplate = new FrontendTemplate($this->navigationTpl);
 
 		$objTemplate->type = get_class($this);
 		$objTemplate->cssID = $this->cssID; // see #4897
@@ -142,7 +149,7 @@ class ModulePageImagesNavigation extends \PageImages
 		while($objSubpages->next())
 		{
 			// Skip hidden sitemap pages
-			if ($this instanceof \ModuleSitemap && $objSubpages->sitemap == 'map_never')
+			if ($this instanceof ModuleSitemap && $objSubpages->sitemap == 'map_never')
 			{
 				continue;
 			}
@@ -157,7 +164,7 @@ class ModulePageImagesNavigation extends \PageImages
 			}
 
 			// Do not show protected pages unless a back end or front end user is logged in
-			if (!$objSubpages->protected || BE_USER_LOGGED_IN || (is_array($_groups) && count(array_intersect($_groups, $groups))) || $this->showProtected || ($this instanceof \ModuleSitemap && $objSubpages->sitemap == 'map_always'))
+			if (!$objSubpages->protected || BE_USER_LOGGED_IN || (is_array($_groups) && count(array_intersect($_groups, $groups))) || $this->showProtected || ($this instanceof ModuleSitemap && $objSubpages->sitemap == 'map_always'))
 			{
 				// Check whether there will be subpages
 				if ($objSubpages->subpages > 0 && (!$this->showLevel || $this->showLevel >= $level || (!$this->hardLimit && ($objPage->id == $objSubpages->id || in_array($objPage->id, $this->Database->getChildRecords($objSubpages->id, 'tl_page'))))))
@@ -173,7 +180,7 @@ class ModulePageImagesNavigation extends \PageImages
 
 						if (strncasecmp($href, 'mailto:', 7) === 0)
 						{
-							$href = \String::encodeEmail($href);
+							$href = StringUtil::encodeEmail($href);
 						}
 						break;
 
@@ -184,7 +191,7 @@ class ModulePageImagesNavigation extends \PageImages
 						}
 						else
 						{
-							$objNext = \PageModel::findFirstPublishedRegularByPid($objSubpages->id);
+							$objNext = PageModel::findFirstPublishedRegularByPid($objSubpages->id);
 						}
 
 						if ($objNext !== null)
@@ -201,9 +208,9 @@ class ModulePageImagesNavigation extends \PageImages
 							$href = $this->generateFrontendUrl($objNext->row(), null, $strForceLang);
 
 							// Add the domain if it differs from the current one (see #3765)
-							if ($objNext->domain != '' && $objNext->domain != \Environment::get('host'))
+							if ($objNext->domain != '' && $objNext->domain != Environment::get('host'))
 						{
-								$href = (\Environment::get('ssl') ? 'https://' : 'http://') . $objNext->domain . TL_PATH . '/' . $href;
+								$href = (Environment::get('ssl') ? 'https://' : 'http://') . $objNext->domain . TL_PATH . '/' . $href;
 							}
 							break;
 						}
@@ -213,15 +220,15 @@ class ModulePageImagesNavigation extends \PageImages
 						$href = $this->generateFrontendUrl($objSubpages->row(), null, $language);
 
 						// Add the domain if it differs from the current one (see #3765)
-						if ($objSubpages->domain != '' && $objSubpages->domain != \Environment::get('host'))
+						if ($objSubpages->domain != '' && $objSubpages->domain != Environment::get('host'))
 						{
-							$href = (\Environment::get('ssl') ? 'https://' : 'http://') . $objSubpages->domain . TL_PATH . '/' . $href;
+							$href = (Environment::get('ssl') ? 'https://' : 'http://') . $objSubpages->domain . TL_PATH . '/' . $href;
 						}
 						break;
 				}
 				
 				// Active page
-				if (($objPage->id == $objSubpages->id || $objSubpages->type == 'forward' && $objPage->id == $objSubpages->jumpTo) && !$this instanceof \ModuleSitemap && !\Input::get('articles'))
+				if (($objPage->id == $objSubpages->id || $objSubpages->type == 'forward' && $objPage->id == $objSubpages->jumpTo) && !$this instanceof ModuleSitemap && !Input::get('articles'))
 				{
 					// Mark active forward pages (see #4822)
 					$strClass = (($objSubpages->type == 'forward' && $objPage->id == $objSubpages->jumpTo) ? 'forward' . (in_array($objSubpages->id, $objPage->trail) ? ' trail' : '') : 'active') . (($subitems != '') ? ' submenu' : '') . ($objSubpages->protected ? ' protected' : '') . (($objSubpages->cssClass != '') ? ' ' . $objSubpages->cssClass : '');
