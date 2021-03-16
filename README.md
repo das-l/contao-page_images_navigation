@@ -1,24 +1,23 @@
-Contao Extension "page_images_navigation"
+Contao Extension "Page Images Navigation"
 =========================================
 
-Add menus with images
+Add menus with images. This is a friendly fork of `Ruudt/contao-page_images_navigation` with the purpose of supporting Contao 4.
 
 ## Intro ##
 
-This extension allows to add a menu that contains or entirely consists of images. The images are administered through the page_images extension which allows to even use random images and fallback images. The page_images extension will be installed automatically if installed through the extension repository.
+This extension allows to add a menu that contains or entirely consists of images. The images are administered through the Page Images extension which allows to even use random images and fallback images. The Page Images extension will be installed automatically if installed through the Contao Manager or using Composer directly.
 
-##Possibilities##
+## Possibilities ##
 
 Menu with icons,
 Menu consisting of only images
 Could also be used to display webstore categories for Isotope E-commerce.
-Examples of this extension at: http://decoxpress.nl (category-menu inside main column of "Webwinkel" and icons inside footer)
 
 ## Usage ##
 
-First setup the pageimages extension. Then create ort edit naviagtion modules as usual, but instead of the normal "Navigation menu" type choose "Navigation menu with images". You can now choose images category and setup size. Further cusomization through the templates.
+First setup the pageimages extension. Then create or edit navigation modules as usual, but instead of the normal "Navigation menu" type choose "Navigation menu with images". You can now choose images category and setup size. Further customization through the templates.
 
 ## Dependencies ##
 
-Pageimages 3.0 or newer
-Contao 3.0 or newer.
+srhinow/contao-page-images-bundle 0.0.3 or newer
+Contao 4.4 or newer.
