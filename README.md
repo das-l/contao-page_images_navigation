@@ -1,7 +1,7 @@
 Contao Extension "Page Images Navigation"
 =========================================
 
-Add menus with images. This is a friendly fork of `Ruudt/contao-page_images_navigation` with the purpose of supporting Contao 4.
+Add menus with images
 
 ## Intro ##
 
