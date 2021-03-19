@@ -1,7 +1,8 @@
 {
     "name": "das-l/contao-page-images-navigation-bundle",
     "type": "contao-bundle",
-    "description": "Add menus with images",
+    "description": "Add menus with images. Friendly fork of Ruud Walraven's page_images_navigation with the purpose of supporting Contao 4.",
+    "keywords": ["contao", "pageimages", "navigation", "page_images_navigation"],
     "support": {
         "issues": "https://github.com/das-l/contao-page_images_navigation/issues"
     },
